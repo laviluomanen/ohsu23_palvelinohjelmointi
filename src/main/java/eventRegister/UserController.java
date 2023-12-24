@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class eventRegisterController {
+public class UserController {
 
     @Autowired
-    private eventRepository eventRepository;
+    private UserRepository userRepository;
 
-    @GetMapping("/")
+    @GetMapping("/users")
     public String list(Model model) {
-        model.addAttribute("fishermen", this.eventRepository.findAll());
-        return "index";
+        model.addAttribute("users", this.userRepository.findAll());
+        return "/users";
     }
 
-    @PostMapping("/")
+    @PostMapping("/users")
     public String create(@RequestParam String name) {
-        this.eventRepository.save(new Users(name));
-        return "redirect:/";
+        this.userRepository.save(new Users(name));
+        return "redirect:/users";
     }
 
 }
