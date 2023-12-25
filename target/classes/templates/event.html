@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event</title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>Event</th>
+        <tr>
+            <td>Event Title</td>
+            <td th:text="${event.event_title}">Event title</td></tr>
+        <tr>
+            <td>Event Description</td>
+            <td th:text="${event.event_description}">Event description</td></tr>
+        <tr>
+            <td>Event Date</td>
+            <td th:text="${event.event_date}">Event date</td></tr>
+        <tr>
+            <td>Event Time</td>
+            <td th:text="${event.event_time}">Event time</td></tr>
+        <tr>
+            <td>Event due date</td>
+            <td th:text="${event.due_date}">Due date</td></tr>
+        <tr>
+            <td>
+                <form th:action="@{/events/delete}" method="POST">
+                    <input type="hidden" name="id" th:value="${event.id}" />
+                    <input type="submit" value="Delete" class="deleteBtn" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

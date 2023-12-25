@@ -13,10 +13,7 @@
 
             <tr th:each="event : ${events}">
                 <td th:text="${event.event_title}">Event title</td>
-                <td th:text="${event.event_description}">Event description</td>
-                <td th:text="${event.event_date}">Event date</td>
-                <td th:text="${event.event_time}">Event time</td>
-                <td th:text="${event.due_date}">Due date</td>
+                <td><a th:href="@{/events/{id}(id=${event.id})}">view</a></td>
             </tr>
         </table>
 
@@ -30,5 +27,7 @@
             <span>Due date:</span><input type="date" id="due_date" name="due_date"/><br>
             <input type="submit" value="Add!"/>
         </form>
+
+
     </body>
 </html>

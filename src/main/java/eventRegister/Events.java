@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -21,7 +20,6 @@ public class Events extends AbstractPersistable<Long> {
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate event_date;
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-
     private LocalTime event_time;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate due_date;
