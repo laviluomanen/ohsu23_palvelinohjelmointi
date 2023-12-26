@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String create(@RequestParam String name) {
-        this.userRepository.save(new Users(name));
+    public String create(@RequestParam String username, @RequestParam String password_hash) {
+        this.userRepository.save(new Users(username, password_hash));
         return "redirect:/users";
     }
 

@@ -5,24 +5,25 @@
 </head>
 
 <body>
-<h1>Event Register</h1>
+  <h1>Event Register</h1>
 
-<table>
-  <tr>
-    <th>Users</th>
-  </tr>
+  <table>
+    <tr>
+      <th>Users</th>
+    </tr>
 
-  <tr th:each="user : ${users}">
-    <td th:text="${user.name}">User name</td>
-  </tr>
-</table>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.name}">User name</td>
+    </tr>
+  </table>
 
-<h2>Add a user</h2>
+  <h2>Add a user</h2>
 
-<form th:action="@{/users}" method="POST">
-  <span>Name:</span>
-  <input type="text" name="name"/>
-  <input type="submit" value="Add!"/>
-</form>
+  <form th:action="@{/users}" method="POST">
+    <span>Name:</span>
+    <input type="text" name="name"/>
+    <input type="submit" value="Add!"/>
+  </form>
+  <a th:href="@{/}">Back to Index</a>
 </body>
 </html>

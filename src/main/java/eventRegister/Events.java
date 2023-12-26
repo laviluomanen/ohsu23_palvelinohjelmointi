@@ -19,7 +19,7 @@ public class Events extends AbstractPersistable<Long> {
     private String event_description;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate event_date;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime event_time;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate due_date;

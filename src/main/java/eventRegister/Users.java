@@ -1,9 +1,13 @@
 package eventRegister;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -12,7 +16,11 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Data
 public class Users extends AbstractPersistable<Long> {
 
-    private String name;
-    //private String password;
+   //@Id
+   //@GeneratedValue
+   //private Long user_id;
+    @Column(unique=true)
+    private String username;
+    private String password_hash;
 
 }
