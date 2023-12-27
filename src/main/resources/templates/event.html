@@ -39,8 +39,8 @@
                     <td th:text="${event.due_date}">Due date</td>
                     <td><input type="date" th:field="${event.due_date}" th:value="${event.due_date}" placeholder="*{due_date}"></td>
                 </tr>
-            <input type="submit" value="Update Event" />
             </table>
+            <input type="submit" value="Update Event" />
         </form>
 
                 <form th:action="@{/events/delete}" method="POST">

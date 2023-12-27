@@ -13,7 +13,7 @@
 
             <tr th:each="event : ${events}">
                 <td th:text="${event.event_title}">Event title</td>
-                <td><a th:href="@{/events/{id}(id=${event.id})}">view</a></td>
+                <td><a th:href="@{/events/{id}(id=${event.id})}">View, Update or Delete</a></td>
             </tr>
         </table>
 

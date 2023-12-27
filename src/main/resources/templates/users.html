@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Event Register</title>
-</head>
+  <head>
+    <title>Event Register</title>
+  </head>
 
-<body>
-  <h1>Event Register</h1>
+  <body>
+    <h1>Event Register</h1>
 
-  <table>
-    <tr>
-      <th>Users</th>
-    </tr>
+    <table>
+      <tr>
+        <th>Users</th>
+      </tr>
 
-    <tr th:each="user : ${users}">
-      <td th:text="${user.name}">User name</td>
-    </tr>
-  </table>
+      <tr th:each="user : ${users}">
+        <td th:text="${user.username}">User name</td>
+        <td><a th:href="@{/users/{id}(id=${user.id})}">View, Update or Delete</a></td>
+      </tr>
+    </table>
 
-  <h2>Add a user</h2>
+    <h2>Add a user</h2>
 
-  <form th:action="@{/users}" method="POST">
-    <span>Name:</span>
-    <input type="text" name="name"/>
-    <input type="submit" value="Add!"/>
-  </form>
-  <a th:href="@{/}">Back to Index</a>
-</body>
+    <form th:action="@{/users}" method="POST">
+      <span>Name:</span><input type="text"  id="username" name="username"/>
+      <input type="submit" value="Add!"/>
+    </form>
+
+
+    <a th:href="@{/}">Back to Index</a>
+  </body>
 </html>

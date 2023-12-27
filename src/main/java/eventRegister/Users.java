@@ -16,11 +16,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Data
 public class Users extends AbstractPersistable<Long> {
 
-   //@Id
-   //@GeneratedValue
-   //private Long user_id;
     @Column(unique=true)
     private String username;
-    private String password_hash;
+    //private String password_hash;
 
 }

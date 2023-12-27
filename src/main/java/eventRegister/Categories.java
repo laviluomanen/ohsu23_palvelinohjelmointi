@@ -11,5 +11,5 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @AllArgsConstructor
 @Data
 public class Categories extends AbstractPersistable<Long> {
-    private String name;
+    private String category_name;
 }

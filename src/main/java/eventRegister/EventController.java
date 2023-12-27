@@ -71,7 +71,7 @@ public class EventController {
         //Parsing the dates and time with formatters
 
 
-        //A really ugly way to circumvent the possibility that empty parameters are passed
+        //An ugly way to circumvent the possibility that empty parameters are passed
         //Model could not be passed as such as date and time Strings need to be formatted and
         //correct variables need to be initialized
         if(!event_title.isEmpty()){
