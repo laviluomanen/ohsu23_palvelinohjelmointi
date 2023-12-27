@@ -15,7 +15,7 @@
                     <td>Event Title</td>
 
                     <td th:text="${event.event_title}">Event title</td>
-                    <td><input type="text" th:field=${event.event_title} th:value="${event.event_title}" placeholder="*{event_title}"></td>
+                    <td><input type="text" th:field="${event.event_title}" th:value="${event.event_title}" placeholder="*{event_title}"></td>
                 </tr>
 
                 <tr>
@@ -42,11 +42,15 @@
             </table>
             <input type="submit" value="Update Event" />
         </form>
-
-                <form th:action="@{/events/delete}" method="POST">
-                    <input type="hidden" name="id" th:value="${event.id}" />
-                    <input type="submit" value="Delete" class="deleteBtn" />
-                </form>
+        <form th:action="@{/events/addCategory}" method="POST">
+            <input type="hidden" name="id" th:field="${event.id}" th:value="${event.id}" />
+            <span>Add to Category</span><input type="text" id="category" name="category"/>
+            <input type="submit" value="Submit" class="categoryBtn"/>
+        </form>
+        <form th:action="@{/events/delete}" method="POST">
+            <input type="hidden" name="id" th:value="${event.id}" />
+            <input type="submit" value="Delete" class="deleteBtn" />
+        </form>
 
 
     <a th:href="@{/events}">Back to Events</a>

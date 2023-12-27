@@ -6,15 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -22,6 +19,12 @@ public class EventController {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @GetMapping("/events")
     public String list(Model model) {
@@ -41,8 +44,8 @@ public class EventController {
         LocalDate event_date = LocalDate.parse(e_date, df1);
         LocalDate due_date = LocalDate.parse(d_date, df1);
         LocalTime event_time = LocalTime.parse(e_time, df2);
-
-        this.eventRepository.save(new Events(event_title, event_description, event_date, event_time, due_date));
+        Events eventToSave = new Events(event_title, event_description, event_date, event_time, due_date, new ArrayList<>());
+        this.eventRepository.save(eventToSave);
         return "redirect:/events";
     }
 
@@ -104,6 +107,42 @@ public class EventController {
         }
 
         this.eventRepository.save(eventToUpdate);
+        return "redirect:/events";
+    }
+    //Lisätään metodilla Eventille kategoria
+    @PostMapping("/events/addCategory")
+    public String addCategory(@RequestParam String category, @RequestParam long id){
+        System.out.println("päädyttiin addcategory-metodiin");
+        List<Category> cat = this.categoryRepository.findAll();
+        //Lomakkeelta on tuotu metodille viite Eventin ID:stä, käytetään sitä
+        Events event = this.eventRepository.getOne(id);
+        //Apumuuttuja muistiin, jotta tiedämme löytyykö kategoria categoryRepositorysta
+        int categoryFound = 0;
+        long index = 0;
+        for(int i=0; i<cat.size(); i++){
+            System.out.println(cat.get(i).getCategory_name());
+            if(cat.get(i).getCategory_name().toLowerCase().equals(category.toLowerCase())){
+                categoryFound++;
+                index = cat.get(i).getId();
+                break;
+            }
+        }
+        //Jos kategoria on olemassa, lisätään kategoria eventille ja tallennetaan event
+        if(categoryFound == 1){
+            Category ct = this.categoryRepository.getOne(index);
+            System.out.println(ct.getId());
+            event.getCategories().add(ct);
+            this.eventRepository.save(event);
+            //Jos kategoriaa ei vielä ole, luodaan se samalla ja tallennetaan event
+        } else {
+            System.out.println("ei löytynyt olemassaolevaa kategoriaa nimeltä" + category);
+            Category newCt = new Category(category, new ArrayList<>());
+            this.categoryRepository.save(newCt);
+            List<Category> tmpCtList = categoryRepository.findAll();
+            event.getCategories().add(newCt);
+            this.eventRepository.save(event);
+        }
+
         return "redirect:/events";
     }
 

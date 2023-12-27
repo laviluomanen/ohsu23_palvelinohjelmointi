@@ -10,10 +10,13 @@
         <tr>
             <th>User</th>
         <tr>
-            <td>Username</td>
-
+            <td>Update Username</td>
             <td th:text="${user.username}">Username</td>
             <td><input type="text" th:field=${user.username} th:value="${user.username}" placeholder="*{username}"></td>
+        </tr>
+        <tr>
+            <td>Update Password</td>
+            <td><input type="text"  id="password" name="password"></td>
         </tr>
     </table>
     <input type="submit" value="Update User" />

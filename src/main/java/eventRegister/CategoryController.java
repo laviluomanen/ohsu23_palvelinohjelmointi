@@ -1,27 +1,21 @@
 package eventRegister;
 
 
-import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
-import java.util.Locale;
+import java.util.ArrayList;
 
 @Controller
 public class CategoryController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/categories")
     public String list(Model model) {
@@ -31,13 +25,14 @@ public class CategoryController {
 
     @PostMapping("/categories")
     public String create(@RequestParam String category_name) {
-        this.categoryRepository.save(new Categories(category_name));
+
+        this.categoryRepository.save(new Category(category_name, new ArrayList<>()));
         return "redirect:/categories";
     }
 
     @GetMapping("categories/{id}")
     public String getOne(@PathVariable(value = "id") long id, Model model) {
-        Categories category = this.categoryRepository.getOne(id);
+        Category category = this.categoryRepository.getOne(id);
         model.addAttribute("category", category);
         return "category";
     }
@@ -50,8 +45,9 @@ public class CategoryController {
 
     @PostMapping("/categories/update")
     public String update(@RequestParam long id, @RequestParam String category_name) {
-        Categories categoryToUpdate = this.categoryRepository.getOne(id);
+        Category categoryToUpdate = this.categoryRepository.getOne(id);
 
+        //Pretty lazy and not the best practice.
         if(!category_name.isEmpty()){
             categoryToUpdate.setCategory_name(category_name);
         } else{
