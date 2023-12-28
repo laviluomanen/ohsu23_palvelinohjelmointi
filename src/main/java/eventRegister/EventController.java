@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,9 +20,6 @@ public class EventController {
     private EventRepository eventRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     CategoryRepository categoryRepository;
 
     @GetMapping("/events")
@@ -31,7 +27,7 @@ public class EventController {
         model.addAttribute("events", this.eventRepository.findAll());
         return "/events";
     }
-
+    //Further checks should be done where due date cannot be before event date, etc.
     @PostMapping("/events")
     public String create(@RequestParam String event_title, @RequestParam("event_description") String event_description,
                          @RequestParam("event_date") String e_date, @RequestParam("event_time") String e_time,
@@ -109,41 +105,47 @@ public class EventController {
         this.eventRepository.save(eventToUpdate);
         return "redirect:/events";
     }
-    //Lisätään metodilla Eventille kategoria
+    //This method adds event to a category
     @PostMapping("/events/addCategory")
     public String addCategory(@RequestParam String category, @RequestParam long id){
-        System.out.println("päädyttiin addcategory-metodiin");
         List<Category> cat = this.categoryRepository.findAll();
-        //Lomakkeelta on tuotu metodille viite Eventin ID:stä, käytetään sitä
+        //Event ID has been passed from the form and that's being used
         Events event = this.eventRepository.getOne(id);
-        //Apumuuttuja muistiin, jotta tiedämme löytyykö kategoria categoryRepositorysta
+        //a variable to store the info whether a category exists already
         int categoryFound = 0;
         long index = 0;
         for(int i=0; i<cat.size(); i++){
-            System.out.println(cat.get(i).getCategory_name());
             if(cat.get(i).getCategory_name().toLowerCase().equals(category.toLowerCase())){
                 categoryFound++;
                 index = cat.get(i).getId();
                 break;
             }
         }
-        //Jos kategoria on olemassa, lisätään kategoria eventille ja tallennetaan event
+        //If the category exists, event is added to it and saved
         if(categoryFound == 1){
             Category ct = this.categoryRepository.getOne(index);
-            System.out.println(ct.getId());
             event.getCategories().add(ct);
             this.eventRepository.save(event);
-            //Jos kategoriaa ei vielä ole, luodaan se samalla ja tallennetaan event
+            //If the category does not exist yet, it's created and event saved
         } else {
-            System.out.println("ei löytynyt olemassaolevaa kategoriaa nimeltä" + category);
             Category newCt = new Category(category, new ArrayList<>());
             this.categoryRepository.save(newCt);
             List<Category> tmpCtList = categoryRepository.findAll();
             event.getCategories().add(newCt);
             this.eventRepository.save(event);
         }
-
         return "redirect:/events";
     }
 
+    public boolean doesEventExist(String proposedEventName){
+        boolean exists = false;
+        List<Events> events = this.eventRepository.findAll();
+        for(int i=0; i<events.size(); i++){
+            if(events.get(i).getEvent_title().toLowerCase().equals(proposedEventName.toLowerCase())){
+                exists = true;
+            }
+        }
+        return exists;
+    }
 }
+

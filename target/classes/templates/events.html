@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Event Register</title>
+        <title>Events</title>
     </head>
     <body>
-        <h1>Event Register</h1>
-
+        <h1>Events</h1>
+        <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+        <p>Use the column headers to sort entries by wanted column</p>
+        <table class="sortable">
+            <thead>
+                <tr>
+                    <th>Event Title</th>
+                    <th>Event Description</th>
+                    <th>Event Date</th>
+                    <th>Event Time</th>
+                    <th>Event Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="event : ${events}">
+                    <td th:text="${event.event_title}"></td>
+                    <td th:text="${event.event_description}"></td>
+                    <td th:text="${event.event_date}"></td>
+                    <td th:text="${event.event_time}"></td>
+                    <td th:text="${event.due_date}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h2>Update or Delete Event</h2>
         <table>
-            <tr>
-                <th>Events</th>
-            </tr>
-
             <tr th:each="event : ${events}">
                 <td th:text="${event.event_title}">Event title</td>
-                <td><a th:href="@{/events/{id}(id=${event.id})}">View, Update or Delete</a></td>
+                <td><a th:href="@{/events/{id}(id=${event.id})}">Update or Delete</a></td>
             </tr>
         </table>
 
@@ -28,8 +47,6 @@
             <!--<span>Category</span><input type="text" id="category" name="category"/><br>-->
             <input type="submit" value="Add!"/>
         </form>
-
         <a th:href="@{/}">Back to Index</a>
-
     </body>
 </html>

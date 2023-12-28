@@ -1,4 +1,4 @@
-//This Class was taken directly as is from https://web-palvelinohjelmointi-21.mooc.fi/osa-5/2-autentikaatio-ja-auktorisointi
+//This Class was taken directly almost as it currently is from https://web-palvelinohjelmointi-21.mooc.fi/osa-5/2-autentikaatio-ja-auktorisointi
 
 package eventRegister;
 
@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 
 @Service

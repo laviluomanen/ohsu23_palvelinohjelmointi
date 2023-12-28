@@ -1,13 +1,11 @@
 package eventRegister;
 
 import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -38,7 +36,7 @@ public class Events extends AbstractPersistable<Long> {
     @ManyToMany
     @JoinTable(
             name = "event_categories",
-            joinColumns = @JoinColumn(name = "id"),
+            joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories;

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Event Register</title>
+        <title>Event And Category Register</title>
     </head>
-
+    <h1>Event And Category Register</h1>
+    <p>One can browse the categories and events. Events may or may not belong to n+1 Categories.</p><br>
     <body>
-    <table>
-        <tr><th>Event Register</th></tr>
-        <tr><td><a th:href="@{/events}">Events</a></td></tr>
-        <tr><td><a th:href="@{/users}">Users</a></td></tr>
-        <tr><td><a th:href="@{/categories}">Categories</a></td></tr>
-    </table>
+        <table>
+            <tr><td><a th:href="@{/events}">Events</a></td></tr>
+            <tr><td><a th:href="@{/users}">Users</a></td></tr>
+            <tr><td><a th:href="@{/categories}">Categories</a></td></tr>
+        </table>
 
     </body>
 </html>

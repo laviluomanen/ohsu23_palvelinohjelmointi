@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>User</title>
-</head>
-<body>
-<form th:action="@{/users/update}" method="POST">
-    <input type="hidden" th:field="${user.id}" th:value="${user.id}"/>
-    <table>
-        <tr>
-            <th>User</th>
-        <tr>
-            <td>Update Username</td>
-            <td th:text="${user.username}">Username</td>
-            <td><input type="text" th:field=${user.username} th:value="${user.username}" placeholder="*{username}"></td>
-        </tr>
-        <tr>
-            <td>Update Password</td>
-            <td><input type="text"  id="password" name="password"></td>
-        </tr>
-    </table>
-    <input type="submit" value="Update User" />
-</form>
+    <head>
+        <title>User</title>
+    </head>
+    <body>
+        <h1>User</h1>
+        <form th:action="@{/users/update}" method="POST">
+            <input type="hidden" th:field="${user.id}" th:value="${user.id}"/>
+        <table>
+            <tr>
+                <td>Update Username</td>
+                <td><input type="text" th:field=${user.username} th:value="${user.username}" placeholder="*{username}"></td>
+            </tr>
+            <tr>
+                <td>Update Password</td>
+                <td><input type="text"  id="password" name="password"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Update User" />
+        </form>
 
-<form th:action="@{/users/delete}" method="POST">
-    <input type="hidden" name="id" th:value="${user.id}" />
-    <input type="submit" value="Delete" class="deleteBtn" />
-</form>
-
-
-<a th:href="@{/events}">Back to Events</a>
-</body>
+        <form th:action="@{/users/delete}" method="POST">
+            <input type="hidden" name="id" th:value="${user.id}" />
+            <input type="submit" value="Delete" class="deleteBtn" />
+        </form>
+        <a th:href="@{/events}">Back to Events</a>
+    </body>
 </html>

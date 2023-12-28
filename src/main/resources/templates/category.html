@@ -1,33 +1,48 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Category</title>
-</head>
-<body>
+  <head>
+    <title>Category</title>
+  </head>
+  <body>
+    <h1>Category</h1>
+    <p>A delete attempt towards this category will fail if there are 1 or more events belonging to this category.</p><br>
 
+    <form th:action="@{/categories/update}" method="POST">
+      <input type="hidden" th:field="${category.id}" th:value="${category.id}"/>
+      <table>
+        <tr>
+          <td><input type="text" th:field=${category.category_name} th:value="${category.category_name}" placeholder="*{category_name}"></td>
+        </tr>
+      </table>
+      <input type="submit" value="Update Category Name" />
+    </form>
 
-<form th:action="@{/categories/update}" method="POST">
-  <input type="hidden" th:field="${category.id}" th:value="${category.id}"/>
-  <table>
-    <tr>
-      <th>Category</th>
-    <tr>
-      <td>Category Name</td>
-      <td th:text="${category.category_name}">Category Name</td>
-      <td><input type="text" th:field=${category.category_name} th:value="${category.category_name}" placeholder="*{category_name}"></td>
-    </tr>
+    <form th:action="@{/categories/delete}" method="POST">
+      <input type="hidden" name="id" th:value="${category.id}" />
+      <input type="submit" value="Delete Category" class="deleteBtn" />
+    </form>
 
-
-  </table>
-  <input type="submit" value="Update Category" />
-</form>
-
-<form th:action="@{/categories/delete}" method="POST">
-  <input type="hidden" name="id" th:value="${category.id}" />
-  <input type="submit" value="Delete" class="deleteBtn" />
-</form>
-
-
-<a th:href="@{/categories}">Back to Categories</a>
-</body>
+    <h2>Events Belonging to this Category</h2>
+    <table>
+      <tr>
+        <th>Event Title</th>
+        <th>Event Description</th>
+        <th>Event Date</th>
+        <th>Event Time</th>
+        <th>Event Due Date</th>
+      </tr>
+      <tr th:if="${category.events.empty}">
+        <td colspan="2"> No Events added to Category </td>
+      </tr>
+      <tr th:each="event : ${category.events}">
+        <td th:text="${event.event_title}"></td>
+        <td th:text="${event.event_description}"></td>
+        <td th:text="${event.event_date}"></td>
+        <td th:text="${event.event_time}"></td>
+        <td th:text="${event.due_date}"></td>
+      </tr>
+    </table>
+    <br>
+    <a th:href="@{/categories}">Back to Categories</a>
+  </body>
 </html>
